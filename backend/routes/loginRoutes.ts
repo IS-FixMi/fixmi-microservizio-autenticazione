@@ -3,23 +3,26 @@ import { db } from '../server';
 import {generate_token, tokenSession} from "../utils/token";
 import {hash_pass} from "../utils/hash";
 import {ObjectId} from "mongodb";
+import getMissingFields from "../utils/missingFields";
 
 // '/api/auth/login'
 const loginRouter = express.Router();
 
 /*
-method: GET
+method: POST
 description: method for logging in, provided email, password, two factor authentication
 body: email, password, twofa
 responses:
-200 {text: "Successfully logged in!",token}
+200 {text: "Successfully logged in!",token} with cookies: token
 400 {error: "missing fields", missingFields}
+404 {error: "user not found"}
 404 {error: "wrong password"}
 400 {error:"2fa not correct"}
 
  */
-loginRouter.get('/', async (req, res) => {
+loginRouter.post('/', async (req, res) => {
     let [email, password, twofa] = [req.body.email, req.body.password, req.body.twofa];
+    /*
     let missingFields: any={};
     if (email == null){
         missingFields.email = "UNSPECIFIED";
@@ -30,8 +33,11 @@ loginRouter.get('/', async (req, res) => {
     if (twofa == null){
         missingFields.twofa = "UNSPECIFIED";
     }
+    */
+    let missingFields= getMissingFields([["email",email],["password",password],["twofa",twofa]]);
+
     //missing fields: returns an error
-    if(!(Object.keys(missingFields).length ===0)){
+    if(missingFields.length!=0){
         res.status(400);
         res.json({error: "missing fields", missingFields: missingFields})
         return;
@@ -44,7 +50,7 @@ loginRouter.get('/', async (req, res) => {
     }
     let hash = hash_pass(password);
     if (hash != user.password_hash ){
-        res.status(400);
+        res.status(404);
         res.json({error: "wrong password"})
 
         return;
@@ -55,6 +61,7 @@ loginRouter.get('/', async (req, res) => {
     }
     let token = generate_token();
     let b = tokenSession.insert(token,new ObjectId(user._id));
+    res.cookie('token', token);
 
     // Return a json
     res.json({text: "Successfully logged in!",token: token});

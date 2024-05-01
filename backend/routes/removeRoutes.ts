@@ -2,6 +2,7 @@ import express from 'express'
 import {tokenSession} from "../utils/token";
 import { db } from '../server';
 import {hash_pass} from "../utils/hash";
+import getMissingFields from "../utils/missingFields";
 // /api/auth/remove
 
 const removeRouter = express.Router();
@@ -20,6 +21,7 @@ responses:
  */
 removeRouter.delete('/', async (req, res) => {
     let [email, password, twofa] = [req.body.email, req.body.password, req.body.twofa];
+    /*
     let missingFields: any={};
     if (email == null){
         missingFields.email = "UNSPECIFIED";
@@ -30,8 +32,12 @@ removeRouter.delete('/', async (req, res) => {
     if (twofa == null){
         missingFields.twofa = "UNSPECIFIED";
     }
+
+    */
+    let missingFields= getMissingFields([["email",email],["password",password],["twofa",twofa]]);
+
     //missing fields: returns an error
-    if(!(Object.keys(missingFields).length ===0)){
+    if(missingFields.length!=0){
         res.status(400);
         res.json({error: "missing fields", missingFields: missingFields})
         return;

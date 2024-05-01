@@ -1,6 +1,7 @@
 import express from 'express'
 import {tokenSession} from "../utils/token";
 import { db } from '../server';
+import getMissingFields from "../utils/missingFields";
 
 
 // '/api/auth/authenticate'
@@ -8,7 +9,7 @@ const authRouter = express.Router();
 
 
 /*
-method: GET
+method: POST
 description: method for authenticating an user, provided a token. In case of success, it returns the user's id and permissionlevel
 body: token
 responses:
@@ -18,13 +19,20 @@ responses:
 404 {error: "user doesn't exist or is deleted"}
 
  */
-authRouter.get('/', async (req,res) => {
+authRouter.post('/', async (req,res) => {
     let token = req.body.token;
+    /*
     let missingFields: any = {}
+
     if (token == null){
         missingFields.token = "UNSPECIFIED"
     }
-    if(!(Object.keys(missingFields).length ===0)){
+
+     */
+    let missingFields= getMissingFields([["token",token]]);
+
+    //missing fields: returns an error
+    if(missingFields.length!=0) {
         res.status(400);
         res.json({error: "missing fields", missingFields: missingFields})
         return;
