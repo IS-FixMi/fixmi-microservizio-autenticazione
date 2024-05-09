@@ -58,7 +58,10 @@
     "ts-node": "^10.9.2",
     "web-vitals": "^3.5.2",
     "webpack": "^5.90.0",
-    "webpack-node-externals": "^3.0.0"
+    "webpack-node-externals": "^3.0.0",
+    "qs": "^6.12.1",
+    "js-cookie":"^3.0.5"
+
   },
   "overrides": {
     "typescript": "^5.3.3"

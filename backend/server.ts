@@ -19,7 +19,7 @@ import pwdChangeRouter from "./routes/passwordRoutes";
 import removeRouter from "./routes/removeRoutes";
 import logoutRouter from "./routes/logoutRoutes";
 import twoFArouter from "./routes/TwoFARoutes";
-
+import cors from "cors";
 // Get variables from .env file
 require('dotenv').config();
 
@@ -69,6 +69,13 @@ app.use(function(req, res, next) {
 
 
 // ------------------ ROUTES ------------------
+const options = {
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}
+app.use(cors(options));
 app.use(bodyParser.urlencoded());
 app.use("/api/auth/greet", greetRouter);
 app.use("/api/auth/testDB", testDBRouter);
