@@ -1,6 +1,45 @@
 /* Tailwind layers */ 
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+/*@import 'tailwindcss/base';*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/*@import 'tailwindcss/components';*/
+/*@import 'tailwindcss/utilities';*/
+
+.main_div{
+    @apply dark:bg-gray-200    h-screen overflow-hidden flex items-center justify-center
+}
+.inner_div{
+    @apply  lg:w-6/12  w-8/12 border-solid border-2 items-center justify-center h-screen
+}
+
+.main_div div label{
+    @apply w-full h-8;
+}
+.main_div div input {
+   @apply w-full h-12 border-solid border-4;
+}
+.main_div a{
+    width:150px;height:30px;color:#fff;text-align:center;display: block;
+           -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px;
+    @apply w-full h-12 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+    margin:2px;
+}
+
+.main_div button{
+    @apply w-full h-12 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+    margin:2px;
+}
+.main_div form{
+    @apply p-12 md:p-24;
+}
+.main_div h1,h2{
+    @apply w-full  text-center;
+    font-size:2em;
+}
 
 
+.main_div form div{
+    @apply flex items-center text-lg mb-6 md:mb-8;
+
+}
