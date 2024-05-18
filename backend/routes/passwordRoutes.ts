@@ -23,18 +23,7 @@ responses:
  */
 pwdChangeRouter.patch('/', async (req, res) => {
     let [email, new_password, twofa] = [req.body.email, req.body.new_password, req.body.twofa];
-    /*
-    let missingFields: any={};
-    if (email == null){
-        missingFields.email = "UNSPECIFIED";
-    }
-    if (new_password == null){
-        missingFields.new_password = "UNSPECIFIED";
-    }
-    if (twofa == null){
-        missingFields.twofa = "UNSPECIFIED";
-    }
-    */
+
     let missingFields= getMissingFields([["email",email],["new_password",new_password],["twofa",twofa]]);
 
     //missing fields: returns an error
