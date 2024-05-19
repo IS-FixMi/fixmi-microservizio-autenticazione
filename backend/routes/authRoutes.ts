@@ -21,14 +21,6 @@ responses:
  */
 authRouter.post('/', async (req,res) => {
     let token = req.body.token;
-    /*
-    let missingFields: any = {}
-
-    if (token == null){
-        missingFields.token = "UNSPECIFIED"
-    }
-
-     */
     let missingFields= getMissingFields([["token",token]]);
 
     //missing fields: returns an error

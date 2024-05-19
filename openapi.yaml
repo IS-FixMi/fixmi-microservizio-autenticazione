@@ -1,0 +1,411 @@
+openapi: 3.0.0
+info:
+  title: Authentication Server API Specification
+  version: 1.0.0
+servers:
+  - url: http://10.5.0.11:3001/api/auth
+  
+paths:
+  /login:
+    post:
+      summary: Login method for user authentication
+      description: This endpoint allows users to log in by providing email, password, and two-factor authentication code.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+
+                password:
+                  type: string
+                  format: password
+                  
+                twofa:
+                  type: string
+                  format: twofa-code
+               
+              required:
+                - email
+                - password
+                - twofa
+      responses:
+        '200':
+          description: Successfully logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                    example: "successfully logged in!"
+                  token:
+                    type: string
+                    example: "12415343463452"
+            
+
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+              description: Session token
+        '400':
+          description: Bad Request - Missing fields or 2fa not correct
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/missingFieldsSchema'
+                  - $ref: '#/components/schemas/wrongTwoFaSchema'
+      
+        '404':
+          description: User not found or wrong password
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/notFoundSchema'
+                  - $ref: '#/components/schemas/wrongPassSchema'
+  /changepass:
+    patch:
+      summary: Password Changing Method
+      description: This endpoint allows existing users to change their passwords  by providing email, the new password, and two-factor authentication code.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                new_password:
+                  type: string
+                  format: password
+                twofa:
+                  type: string
+                  format: twofa-code
+              required:
+                - email
+                - new_password
+                - twofa
+      responses:
+        '200':
+          description: Successfully changed your password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                    example: "successfully changed your password"
+                  token:
+                    type: string
+                    example: "12312434325321234"
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+              description: Session token
+        '400':
+          description: Bad Request - Missing fields or 2fa not correct
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/missingFieldsSchema'
+                  - $ref: '#/components/schemas/wrongTwoFaSchema'
+      
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFoundSchema'
+  /remove:
+    delete:
+      summary: Account removal method
+      description: This endpoint allows existing users to remove their accounts by providing email, password, and two-factor authentication code.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+                twofa:
+                  type: string
+                  format: twofa-code
+              required:
+                - email
+                - password
+                - twofa
+      responses:
+        '200':
+          description: Succesfully removed the account
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                    example: "Successfully removed your account."
+        '400':
+          description: Bad Request - Missing fields or 2fa not correct
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/missingFieldsSchema'
+                  - $ref: '#/components/schemas/wrongTwoFaSchema'
+      
+        '404':
+          description: User not found or wrong password
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/notFoundSchema'
+                  - $ref: '#/components/schemas/wrongPassSchema'
+  /register:
+    post:
+      summary: Registering method for new users
+      description: This endpoint allows new users to register by providing email, password, and two-factor authentication code.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  
+                password:
+                  type: string
+                  format: password
+                twofa:
+                  type: string
+                  format: twofa-code
+              required:
+                - email
+                - password
+                - twofa
+      responses:
+        '200':
+          description: Succesfully registered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                    example: "Successfully registered"
+                  token:
+                    type: string
+                    example: "1231345321532151"
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+              description: Session token
+        '400':
+          description: Bad Request - Missing fields or 2fa not correct or User already exists
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/missingFieldsSchema'
+                  - $ref: '#/components/schemas/wrongTwoFaSchema'
+                  - $ref: '#/components/schemas/alreadyExistsSchema'
+  /logout:
+    delete:
+      summary: Method for logging out 
+      description: This endpoint allows users who have already logged in to log out by providing their token.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+              required:
+                  - token
+      responses:
+        '200':
+          description: Succesfully logged out
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                    example: "Succesfully logged out!"
+        '400':
+          description: Bad Request - Missing fields 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/missingFieldsSchema'
+        '404':
+          description: User not found with the given token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFoundSchema'
+  /authenticate:
+    post:
+      summary: Method for authentication 
+      description: This endpoint allows other microservices to authenticate a user by providing their token
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  
+              required:
+                  - token
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                    example: "success"
+                  user_info:
+                    type: object
+                    properties:
+                      permission:
+                        type: string
+                        example: "Manager"
+                      id:
+                        type: string
+                        example: "aa231e3421bd1223"
+
+      
+
+        '400':
+          description: Bad Request - Missing fields 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/missingFieldsSchema'
+        '404':
+          description: User not found with the given token or user doesn't exist 
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/notFoundSchema'
+                  - $ref: '#/components/schemas/maybeDeletedSchema'
+  /twofa:
+    post:
+      summary: Method for receiving a 2FA code 
+      description: This endpoint allows users to request a Two-Factor Authentication code by providing their email
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+              required:
+                  - token
+      responses:
+        '200':
+          description: Succesfully sent the 2FA
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                    example: "Successfully sent the 2FA code to your email(SPOILER: IT'S 12345)"
+        '400':
+          description: Bad Request - Missing fields 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/missingFieldsSchema'
+                     
+        
+
+
+
+
+components:
+  schemas:
+    missingFieldsSchema:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "missing fields"
+        missingFields:
+          type: array
+          items:
+            type: string
+          example:
+            - "email"
+            - "password"
+            - "twofa"
+    wrongTwoFaSchema:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "2fa not correct"
+    notFoundSchema:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "user not found"
+    wrongPassSchema:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "wrong password"
+    alreadyExistsSchema:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "user already exists"
+    maybeDeletedSchema:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "user doesn't exist or is deleted"

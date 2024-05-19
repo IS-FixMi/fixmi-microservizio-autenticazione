@@ -21,19 +21,7 @@ responses:
  */
 removeRouter.delete('/', async (req, res) => {
     let [email, password, twofa] = [req.body.email, req.body.password, req.body.twofa];
-    /*
-    let missingFields: any={};
-    if (email == null){
-        missingFields.email = "UNSPECIFIED";
-    }
-    if (password == null){
-        missingFields.password = "UNSPECIFIED";
-    }
-    if (twofa == null){
-        missingFields.twofa = "UNSPECIFIED";
-    }
-
-    */
+    
     let missingFields= getMissingFields([["email",email],["password",password],["twofa",twofa]]);
 
     //missing fields: returns an error

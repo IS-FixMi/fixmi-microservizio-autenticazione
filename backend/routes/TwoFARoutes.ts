@@ -15,13 +15,6 @@ responses:
 */
 twoFArouter.post('/', (req, res) => {
     let email = req.body.email;
-    /*
-    let missingFields: any = {}
-    if (email== null){
-        missingFields.email = "UNSPECIFIED"
-    }
-
-     */
     let missingFields = getMissingFields([["email",email]]);
     if(missingFields.length != 0){
         res.status(400);
