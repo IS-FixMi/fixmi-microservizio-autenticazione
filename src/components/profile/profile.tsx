@@ -12,15 +12,16 @@ export default function ProfilePage() {
     
     const x = (log) ? (<>
         <h2>You're logged in</h2>
-        <a href="/profile/remove">Remove Profile</a>
-        <a href="/profile/logout">Logout</a>
+        <a href="remove">Remove Profile</a>
+        <a href="logout">Logout</a>
     </>
     ) : (
-        <><h2> You're not logged in!</h2> <a className="button" href="/profile/login">Login</a>   <a className="button" href="/profile/register">Register</a></>
+        <><h2> You're not logged in!</h2> <a className="button" href="login">Login</a>   <a className="button" href="register">Register</a></>
     )
     return (
         <>
         <Navbar/>
+
            <div className="main_div"><div className="inner_div">{x}</div></div> 
             <><AuthChecker setRes = {setLog}/></>
         <Footer/>
