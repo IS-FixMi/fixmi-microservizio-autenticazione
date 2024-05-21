@@ -8,6 +8,7 @@ import TwoFa from "../twofa/twoFa";
 import '../../style.css'
 import Navbar from "../navbar";
 import Footer from "../footer";
+import { setToken } from "../../utils/cookie";
 //import { json } from "body-parser";
  function Login(){
 
@@ -34,7 +35,7 @@ import Footer from "../footer";
                         async (response) => {
                             if(response.status==200){
                                 const body = await response.json();  
-                                    document.cookie="token="+ body.token;
+                                    setToken(body.token);
                                     setStatus(Status.Success);
                                
                             } else{
@@ -70,7 +71,7 @@ import Footer from "../footer";
             <>
             <h1 className="my_h1">Successfully Logged In!</h1>
             
-            <a href="/">Go back to homepage</a>
+            <a href="home">Go back to homepage</a>
             </>
         )
     }
@@ -91,8 +92,8 @@ import Footer from "../footer";
             <button className="my_button" type="submit"> Login</button>
             
         </form>
-        <h3><a href="/profile/changepass"> Forgot your password?</a></h3>
-        <h3><a href="/profile/register">Don't have an account? Register </a></h3>
+        <h3><a href="changepass"> Forgot your password?</a></h3>
+        <h3><a href="register">Don't have an account? Register </a></h3>
         </>
 
 
@@ -120,7 +121,7 @@ function Fallback({error}){
     return (
         <>
         <h2 >Something went Wrong!  {printable}</h2>
-        <a href="/profile/login">return to Login</a>
+        <a href="login">return to Login</a>
 
         </>
     )

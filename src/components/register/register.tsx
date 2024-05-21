@@ -7,6 +7,7 @@ import Status from "../../utils/statusEnum";
 import TwoFa from "../twofa/twoFa";
 import Navbar from "../navbar";
 import Footer from "../footer";
+import { setToken } from "../../utils/cookie";
 
 //import { json } from "body-parser";
  function Register(){
@@ -41,7 +42,7 @@ import Footer from "../footer";
                         async (response) => {
                             if(response.status==200){
                                 const body = await response.json();  
-                                    document.cookie="token="+ body.token;
+                                    setToken(body.token)
                                     setStatus(Status.Success);
                                
                             } else{
@@ -77,7 +78,7 @@ import Footer from "../footer";
             <>
             <h1 >Successfully Registered</h1>
             
-            <a href="/">Go back to homepage</a>
+            <a href="home">Go back to homepage</a>
             </>
         )
     }
@@ -136,8 +137,8 @@ function Fallback({error}){
     return (
         <>
         <h2>Something went Wrong!  {printable}</h2>
-        <a href="/profile/register">return to Register</a>
-        <a href="/">return to Home</a>
+        <a href="register">return to Register</a>
+        <a href="home">return to Home</a>
         
         </>
     )
