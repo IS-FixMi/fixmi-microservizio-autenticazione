@@ -6,6 +6,7 @@
 /*@import 'tailwindcss/components';*/
 /*@import 'tailwindcss/utilities';*/
 
+/*
 .main_div{
     @apply dark:bg-gray-200    h-screen overflow-hidden flex items-center justify-center
 }
@@ -43,3 +44,4 @@
     @apply flex items-center text-lg mb-6 md:mb-8;
 
 }
+*/

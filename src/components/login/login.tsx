@@ -8,6 +8,7 @@ import TwoFa from "../twofa/twoFa";
 import '../../style.css'
 import Navbar from "../navbar";
 import Footer from "../footer";
+import FormLogin from "./formLogin.tsx";
 import { setToken } from "../../utils/cookie";
 //import { json } from "body-parser";
  function Login(){
@@ -21,7 +22,7 @@ import { setToken } from "../../utils/cookie";
     const {showBoundary} = useErrorBoundary();
 
     async function handleSubmit(e){
-        setEmail(e.target.elements.email.value);
+	setEmail(e.target.elements.email.value);
         setPassword(e.target.elements.password.value);
         setStatus(Status.FirstSubmit);
     }
@@ -77,26 +78,7 @@ import { setToken } from "../../utils/cookie";
     }
     //Start
     return (
-        <>
-       
-        <h1 >Login</h1>
-        <form  onSubmit={handleSubmit}>
-            <div >
-            <label  htmlFor="email">Email</label> 
-            <input  type="email" placeholder="Email" name="email" required></input>
-            </div>
-            <div >
-            <label  htmlFor="password"> Password</label>
-            <input  type="password"placeholder="Password" name="password" required></input>
-            </div>
-            <button className="my_button" type="submit"> Login</button>
-            
-        </form>
-        <h3><a href="changepass"> Forgot your password?</a></h3>
-        <h3><a href="register">Don't have an account? Register </a></h3>
-        </>
-
-
+        <> <FormLogin onSubmit={handleSubmit}/> </>   
     )
 }
 

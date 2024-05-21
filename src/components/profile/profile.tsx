@@ -3,7 +3,7 @@ import { authRequest } from "../../utils/connection";
 import Cookies from "js-cookie";
 import Footer from "../footer";
 import Navbar from "../navbar";
-
+import NotLoggedIn from "./notLoggedIn.tsx";
 
 export default function ProfilePage() {
     const [log, setLog] = useState(false);
@@ -16,7 +16,7 @@ export default function ProfilePage() {
         <a href="logout">Logout</a>
     </>
     ) : (
-        <><h2> You're not logged in!</h2> <a className="button" href="login">Login</a>   <a className="button" href="register">Register</a></>
+        <><NotLoggedIn /></>
     )
     return (
         <>
