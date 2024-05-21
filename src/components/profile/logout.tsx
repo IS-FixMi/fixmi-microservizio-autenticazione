@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { AuthChecker } from "./profile";
 import Navbar from "../navbar";
 import Footer from "../footer";
+import { removeToken } from "../../utils/cookie";
 
 
 export default function ProfilePage() {
@@ -22,9 +23,9 @@ export default function ProfilePage() {
                         async (response) => {
                             if (response.status == 200) {
                                 setLog(false);
-                                Cookies.remove('token');
+                                removeToken();
                             } else {
-                                Cookies.remove('token');
+                                removeToken();
     
                             }
     
@@ -40,7 +41,7 @@ export default function ProfilePage() {
         <form onSubmit= {handleSubmit}><button type="submit">Log out</button></form>
     </>
     ) : (
-        <><h2> You've Successfully logged out!</h2><a href="/">Home</a> <a href="/profile/login">Login</a>  <a href="/profile/register">Register</a></>
+        <><h2> You've Successfully logged out!</h2><a href="home">Home</a> <a href="login">Login</a>  <a href="register">Register</a></>
     )
     return (
         <>

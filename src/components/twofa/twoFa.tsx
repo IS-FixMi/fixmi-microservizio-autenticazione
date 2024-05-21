@@ -17,7 +17,7 @@ function Fallback({error}){
     return (
         <>
         <h2>Something went Wrong! {error.data}</h2>
-        <a href="/">return to Home</a>
+        <a href="home">return to Home</a>
         
         </>
     )

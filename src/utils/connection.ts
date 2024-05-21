@@ -1,8 +1,8 @@
-const PORT = process.env.REACT_APP_BACKEND_PORT || "3001";
+//const PORT = process.env.REACT_APP_BACKEND_PORT || "3001";
 
 import qs from "qs";
 
-const baseURL = "http://127.0.0.1:"+PORT;
+const baseURL = "http://127.0.0.1:"+7777;
 
 export function twoFaRequest(email: string){
     const options = {

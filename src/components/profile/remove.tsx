@@ -69,7 +69,7 @@ import Footer from "../footer";
             <>
             <h1>Successfully Removed Your Account!</h1>
             
-            <a href="/">Go back to homepage</a>
+            <a href="home">Go back to homepage</a>
             </>
         )
     }
@@ -116,8 +116,8 @@ function Fallback({error}){
     return (
         <>
         <h2>Something went Wrong!  {printable}</h2>
-        <a href="/profile">return to Profile</a>
-        <a href="/">return to Home</a>
+        <a href="profile">return to Profile</a>
+        <a href="home">return to Home</a>
        
         </>
     )

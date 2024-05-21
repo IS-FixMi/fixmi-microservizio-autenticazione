@@ -20,7 +20,7 @@ import LogoutPage from './components/profile/logout';
 function App() {
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='auth/'>
       <main>
           <Routes>
             {/* Routing */}
@@ -28,11 +28,11 @@ function App() {
             <Route path="greet" element={<Greet />}/>
             <Route path="test" element={<TestText />}/>
             <Route path="profile" element={<ProfilePage/>}></Route>
-            <Route path="profile/login" element={<LoginPage />}/>
-            <Route path="profile/register" element={<RegisterPage/>}/>
-            <Route path="profile/changepass" element={<ChangePassPage/>}/>
-            <Route path="profile/remove" element={<RemovePage/>}/>
-            <Route path="profile/logout" element={<LogoutPage/>}/>
+            <Route path="login" element={<LoginPage />}/>
+            <Route path="register" element={<RegisterPage/>}/>
+            <Route path="changepass" element={<ChangePassPage/>}/>
+            <Route path="remove" element={<RemovePage/>}/>
+            <Route path="logout" element={<LogoutPage/>}/>
             <Route path="*" element={<Home />}/>
           </Routes>
       </main>
