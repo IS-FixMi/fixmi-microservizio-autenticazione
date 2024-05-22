@@ -21,11 +21,12 @@ import { setToken } from "../../utils/cookie";
     
     const {showBoundary} = useErrorBoundary();
 
-    async function handleSubmit(e){
+    function handleSubmit(e){
 	setEmail(e.target.elements.email.value);
         setPassword(e.target.elements.password.value);
         setStatus(Status.FirstSubmit);
     }
+
     //TwoFaSubmitted
     useEffect(() => {
     if(status == Status.TwoFaSubmitted){
@@ -78,7 +79,7 @@ import { setToken } from "../../utils/cookie";
     }
     //Start
     return (
-        <> <FormLogin onSubmit={handleSubmit}/> </>   
+        <> <FormLogin onSubmit={handleSubmit} /> </>   
     )
 }
 
