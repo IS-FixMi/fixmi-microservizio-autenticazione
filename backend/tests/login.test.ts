@@ -5,7 +5,7 @@ describe('Login testing', () => {
         const res = await request("localhost:3001")
             .post('/api/auth/login')
             .type('form')
-            .send({email:"test@test.com",password:"test",twofa:"12345"});
+            .send({email:"manager@test.com",password:"test",twofa:"12345"});
         expect(res.statusCode).toEqual(200);
     })
     it("should return an error, because we didn't include fields", async() => {
@@ -26,7 +26,7 @@ describe('Login testing', () => {
         const res = await request("localhost:3001")
             .post('/api/auth/login')
             .type('form')
-            .send({email:"test@test.com",password:"test1",twofa:"12345"});
+            .send({email:"manager@test.com",password:"test1",twofa:"12345"});
         expect(res.statusCode).toEqual(404);
     })
 })

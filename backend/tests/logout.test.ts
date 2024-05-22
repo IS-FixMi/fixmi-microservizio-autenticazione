@@ -7,7 +7,7 @@ describe('Logout testing', () => {
         const resLogin = await request
             .post('/api/auth/login')
             .type('form')
-            .send({email:"test@test.com",password:"test",twofa:"12345"});
+            .send({email:"manager@test.com",password:"test",twofa:"12345"});
         let token = resLogin.body.token;
 
         const res = await request
@@ -31,7 +31,7 @@ describe('Logout testing', () => {
         const resLogin = await request
             .post('/api/auth/login')
             .type('form')
-            .send({email:"test@test.com",password:"test",twofa:"12345"});
+            .send({email:"manager@test.com",password:"test",twofa:"12345"});
         let token = resLogin.body.token;
 
         const res = await request
