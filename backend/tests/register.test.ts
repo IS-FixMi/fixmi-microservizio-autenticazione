@@ -1,6 +1,6 @@
 const request = require('supertest')('localhost:3001');
 describe('Register testing', () => {
-    it('should successfully change password', async() => {
+    it('should successfully register', async() => {
 
         const resRegister = await request
             .post('/api/auth/register')
@@ -32,7 +32,7 @@ describe('Register testing', () => {
         const resRegister = await request
             .post('/api/auth/register')
             .type('form')
-            .send({email:"test@test.com",password:"test",twofa:"12345"});
+            .send({email:"manager@test.com",password:"test",twofa:"12345"});
         expect(resRegister.statusCode).toEqual(400);
 
 
