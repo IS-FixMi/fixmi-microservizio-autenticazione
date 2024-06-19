@@ -29,12 +29,12 @@ export default function Navbar() {
         <div className={`w-full md:flex md:w-auto ${isMenuOpen ? '' : 'hidden'}`} id="navbar-default">
           <ul className="font-large flex flex-col items-center md:items-start p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
             <li>
-              <a href="#" className="block py-2 px-3 rounded dark:hover:bg-gray-700 dark:hover:text-white bg-blue-200 text-blue-800">
+              <a href="/riparazione" className="block py-2 px-3 rounded dark:hover:bg-gray-700 dark:hover:text-white bg-blue-200 text-blue-800">
                 Riparazione
               </a>
             </li>
             <li>
-              <a href="#" className="block py-2 px-3 rounded dark:hover:bg-gray-700 dark:hover:text-white bg-green-200 text-green-800">
+              <a href="/assistenza" className="block py-2 px-3 rounded dark:hover:bg-gray-700 dark:hover:text-white bg-green-200 text-green-800">
                 Assistenza
               </a>
             </li>
@@ -43,13 +43,16 @@ export default function Navbar() {
                 Negozio
               </a>
             </li>
+{/*controllare se si è dipendente oppure user*/}
             <li>
-              <a href="#" className="block py-2 px-3 rounded dark:hover:bg-gray-700 dark:hover:text-white bg-purple-200 text-purple-800">
-                Magazzino
+              <a href="/tasks" className="block py-2 px-3 rounded dark:hover:bg-gray-700 dark:hover:text-white bg-purple-200 text-purple-800">
+                Tasks
               </a>
             </li>
             <li>
-              <a href="profile" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Profilo</a>
+              <a href="/auth" className="block py-2 px-3 rounded dark:hover:bg-gray-700 dark:hover:text-white bg-yellow-200 text-yellow-800">
+                Profilo
+              </a>
             </li>
           </ul>
         </div>

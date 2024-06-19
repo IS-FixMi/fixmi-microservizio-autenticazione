@@ -12,13 +12,13 @@ export default function NotLoggedIn() {
             </p>
             <div className="flex justify-around">
               <a
-                href="./profile/login"
+                href="login"
                 className="bg-blue-500 text-white text-4xl py-2 px-6 rounded hover:bg-blue-600 transition duration-300 ease-in-out"
               >
                 Login
               </a>
               <a
-                href="./profile/register"
+                href="register"
                 className="bg-green-500 text-white text-4xl py-2 px-6 rounded hover:bg-green-600 transition duration-300 ease-in-out"
               >
                 Registrati
